@@ -1,9 +1,10 @@
+import string
+
 STOP_WORDS = [
     'a', 'an', 'and', 'are', 'as', 'at', 'be', 'by', 'for', 'from', 'has', 'he',
     'i', 'in', 'is', 'it', 'its', 'of', 'on', 'that', 'the', 'to', 'were',
     'will', 'with'
 ]
-punc = "\!()-[]{};:',<>./?@#$%^&*_~" + '"'
 wordCount = {}
 badWords = {}
 
@@ -19,7 +20,7 @@ def open_and_read_file(file):
 def removePunctation(file1):
     for line in file1:
         for word in line.split():
-            if word in punc:
+            if word in string.punctuation:
                 file1 = file1.replace(word, "")
     return file1        
 
