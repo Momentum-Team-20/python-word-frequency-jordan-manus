@@ -17,7 +17,7 @@ def open_and_read_file(file):
 
 
 # fucntion removes all punctuation from file if it is in string punc. returns file1 without punctuation
-def removePunctation(file1):
+def remove_punctation(file1):
     for line in file1:
         for word in line.split():
             if word in string.punctuation:
@@ -25,20 +25,24 @@ def removePunctation(file1):
     return file1        
 
 
+# def addWhiteSpace(wordCount):
+#     for word in wordCount:
+#         print(word)
+
 # counts each word in the file and sorts good words from stop words. returns dictionary of good word counts
 def count_words(file1):
     for word in file1.split():
         word = word.lower()
         if word in STOP_WORDS:
             if word in badWords:
-                badWords[word] += '*'
+                badWords[word] += 1
             else:
-                badWords[word] = '*'
+                badWords[word] = 1
         else:
             if word in wordCount:
-                wordCount[word] += '*'
+                wordCount[word] += 1
             else:
-                wordCount[word] = '*'
+                wordCount[word] = 1
     return wordCount
 
 
@@ -46,11 +50,14 @@ def count_words(file1):
 def print_word_freq(file):
     """Read in `file` and print out the frequency of words in that file."""    
     file1 = open_and_read_file(file)
-    file1 = removePunctation(file1)
+    file1 = remove_punctation(file1)
     wordCount = count_words(file1)
 
+    sortedWordCount = sorted(wordCount.items(), key=lambda x: x[1], reverse=True)
+    wordCount = dict(sortedWordCount)
+
     for key, value in wordCount.items():
-        print(key, ':', value)
+        print(f'{key:>15s} | {value} {value * '*'}')
 
 
 if __name__ == "__main__":
@@ -68,3 +75,6 @@ if __name__ == "__main__":
     else:
         print(f"{file} does not exist!")
         exit(1)
+
+
+#  print(f'{word:>15s}', f'| {count}', count * '*')
